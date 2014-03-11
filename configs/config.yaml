@@ -25,15 +25,15 @@ directory:
 # Add only 2 domains, key will act as a label
 domains:
   production: "http://www.lessonplanet.com"
-  staging: "http://staging.lessonplanet.com"
+  staging: "http://www.lessonplanet.com"
 
 #Type screen widths below, here are a couple of examples
 screen_widths:
-  - 1440x900
+#  - 1440x900
   - 1280x1024
-  - 1024x768
-  - 768x1024
-  - 320x480
+#  - 1024x768
+#  - 768x1024
+#  - 320x480
 #  - 320
 #  - 768
 #  - 1024
@@ -42,13 +42,13 @@ screen_widths:
 #Type page URL paths below, here are a couple of examples
 paths:
   home: /
-  search: /search?keywords=math
-  apps: /apps
-  # edtech: /professional-development
-  school_edition: /schooledition
-  standards: /state-standards
-  articles: /articles
-  step-1: /register/step-1
+#  search: /search?keywords=math
+#  apps: /apps
+#  edtech: /professional-development
+#  school_edition: /schooledition
+#  standards: /state-standards
+#  articles: /articles
+#  step-1: /register/step-1
 
 # If you don't want to name the paths explicitly you can use a yaml
 # collection as follows, and names will be derived by replacing / with _

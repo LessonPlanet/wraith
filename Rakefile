@@ -65,6 +65,10 @@ task :generate_gallery do
   @save_images = Wraith::SaveImages.new(@config)
   sh "ruby lib/wraith/gallery.rb #{@save_images.directory}"
 end
+
+task :generate_gallery_index do
+  sh "ruby lib/wraith/gallery_index.rb snap_history"
+end
  
 task :build_history do
   dir_name = "snap_history/#{Time.now.strftime("%F-%H%M%S")}"
