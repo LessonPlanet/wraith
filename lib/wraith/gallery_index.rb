@@ -63,7 +63,13 @@ def parse_directories(dirname)
     return dirs
 end
 
+def cycle_directories(dirname)
+    Dir.foreach(dirname).select {|f| File.directory?(f) && !['.', '..'].include?(f)}
+    
+end
+
 def generate_html(directories, template, destination)
+    puts directories
     template = File.read(template)
     html = ERB.new(template).result
     File.open(destination, 'w') do |outf|
@@ -78,8 +84,9 @@ end
 
 location = ARGV[0]
 #directories = parse_directories(location)
-directories = ["2014-03-04-122950", "2014-03-11-122950"]
+directories = cycle_directories(location)
 dest = "#{location}/index.html"
+
 
 generate_html(directories, TEMPLATE_LOCATION, dest)
 FileUtils.cp(BOOTSTRAP_LOCATION, "#{location}/bootstrap.min.css")
