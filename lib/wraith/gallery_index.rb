@@ -6,6 +6,7 @@
 require 'erb'
 require 'pp'
 require 'fileutils'
+require 'pry-debugger'
 
 MATCH_FILENAME = /(\S+)_(\S+)\.\S+/
 TEMPLATE_LOCATION = "lib/wraith/gallery_template/gallery_index_template.erb"
@@ -63,13 +64,11 @@ def parse_directories(dirname)
     return dirs
 end
 
-def cycle_directories(dirname)
-    Dir.foreach(dirname).select {|f| File.directory?(f) && !['.', '..'].include?(f)}
-    
+def find_archive_directories(dirname)
+    Pathname.new(dirname).children.select { |p| p.directory? }.map(&:basename)
 end
 
 def generate_html(directories, template, destination)
-    puts directories
     template = File.read(template)
     html = ERB.new(template).result
     File.open(destination, 'w') do |outf|
@@ -84,7 +83,8 @@ end
 
 location = ARGV[0]
 #directories = parse_directories(location)
-directories = cycle_directories(location)
+#directories = ["2014-03-12-131744", "2014-03-12-121427"]
+directories = find_archive_directories(location)
 dest = "#{location}/index.html"
 
 

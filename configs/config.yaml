@@ -25,7 +25,7 @@ directory:
 # Add only 2 domains, key will act as a label
 domains:
   production: "http://www.lessonplanet.com"
-  staging: "http://www.lessonplanet.com"
+  staging: "http://staging.lessonplanet.com"
 
 #Type screen widths below, here are a couple of examples
 screen_widths:
@@ -43,7 +43,7 @@ screen_widths:
 paths:
   home: /
 #  search: /search?keywords=math
-#  apps: /apps
+  apps: /apps
 #  edtech: /professional-development
 #  school_edition: /schooledition
 #  standards: /state-standards
