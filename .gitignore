@@ -3,3 +3,5 @@ data.txt
 .DS_Store
 *.swp
 .idea/*
+snap_history/*
+production-vs-staging
