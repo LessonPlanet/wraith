@@ -41,7 +41,7 @@ paths:
   home: /
   search: /search?keywords=math
   apps: /apps
-  edtech: /professional-development
+  edtech: /professional-development/courses
   school_edition: /schooledition
   standards: /state-standards
   articles: /articles
