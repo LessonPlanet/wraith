@@ -1,10 +1,6 @@
 #This config file will be responsible for acting as our baseline -- runs against production, on main pages used for regression
 
 #TODO
-#how to get to Step 2
-#how to compare visitors/members
-#
-
 
 #Headless browser option
 browser:
@@ -39,13 +35,13 @@ screen_widths:
 #Type page URL paths below, here are a couple of examples
 paths:
   home: /
-  search: /search?keywords=math
+  search: /search?keywords=peaches&grade_ids%5B%5D=249&subject_ids%5B%5D=365216&type_ids%5B%5D=357917
   apps: /apps
   edtech: /professional-development/courses
+  how-it-works: /content/how_it_works
   school_edition: /schooledition
+  signup: /subscription/new
   standards: /state-standards
-  articles: /articles
-  step1: /register/step-1
 
 # If you don't want to name the paths explicitly you can use a yaml
 # collection as follows, and names will be derived by replacing / with _
