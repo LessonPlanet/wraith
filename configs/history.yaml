@@ -25,8 +25,14 @@ screen_widths:
 
 #Type page URL paths below, here are a couple of examples
 paths:
-  home: /
-  search: /search?keywords=math
+   home: /
+   search: /search?keywords=peaches&grade_ids%5B%5D=249&subject_ids%5B%5D=365216&type_ids%5B%5D=357917
+   apps: /apps
+   edtech: /professional-development/courses
+   how-it-works: /content/how_it_works
+   school_edition: /schooledition
+   signup: /subscription/new
+   standards: /state-standards
 
 #Amount of fuzz ImageMagick will use
 fuzz: '20%'
