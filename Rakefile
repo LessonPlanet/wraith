@@ -9,7 +9,7 @@ require 'wraith/thumbnails'
 require 'wraith/compare_images'
 require 'wraith/gallery'
 
-@config = ('config')
+@config = ('history')
 
 desc 'Execute wraith on two sites with a config you specify'
 task :config, [:yaml] do |_t, custom|
@@ -64,7 +64,7 @@ end
 
 desc 'Execute wraith on a single site, no image diffs, with a config you specify'
 task :grabber, [:yaml] do |_t, custom|
-  custom.with_defaults(yaml: 'config')
+  custom.with_defaults(yaml: 'history')
   @config = "#{custom[:yaml]}"
   Rake::Task['grab'].invoke
 end
