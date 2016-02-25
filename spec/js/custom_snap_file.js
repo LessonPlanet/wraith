@@ -1,17 +1,18 @@
 // modules
 var system = require('system'),
-    casper = require('casper').create(),
-    helper = requireRelative('_helper.js')(casper.cli.get(1));
+    casper = require('casper').create();
 
 // command line arguments
 var url = casper.cli.get(0),
-    dimensions = helper.dimensions,
+    dimensions_tmp = /(\d*)x?((\d*))?/i.exec(casper.cli.get(1));
+    dimensions = {
+        'viewportWidth':  parseInt(dimensions_tmp[1]),
+        'viewportHeight': parseInt(dimensions_tmp[2] || 1500)
+    },
     image_name = casper.cli.get(2),
     selector = casper.cli.get(3),
     globalBeforeCaptureJS = casper.cli.get(4),
-    pathBeforeCaptureJS = casper.cli.get(5),
-    dimensionsProcessed = 0,
-    currentDimensions;
+    pathBeforeCaptureJS = casper.cli.get(5);
 
 // functions
 function requireRelative(file) {
@@ -24,38 +25,19 @@ function requireRelative(file) {
   return require(currentFilePath + '/' + file);
 }
 function snap() {
-  console.log('Snapping ' + url + ' at: ' + currentDimensions.viewportWidth + 'x' + currentDimensions.viewportHeight);
-
   if (!selector) {
     this.capture(image_name);
   }
   else {
     this.captureSelector(image_name, selector);
   }
-
-  dimensionsProcessed++;
-  if (helper.takingMultipleScreenshots(dimensions) && dimensionsProcessed < dimensions.length) {
-    currentDimensions = dimensions[dimensionsProcessed];
-    image_name = helper.replaceImageNameWithDimensions(image_name, currentDimensions);
-    casper.viewport(currentDimensions.viewportWidth, currentDimensions.viewportHeight);
-    casper.wait(300, function then () {
-      snap.bind(this)();
-    });
-  }
-}
-
-if (helper.takingMultipleScreenshots(dimensions)) {
-  currentDimensions = dimensions[0];
-  image_name = helper.replaceImageNameWithDimensions(image_name, currentDimensions);
-}
-else {
-  currentDimensions = dimensions;
+  console.log('Snapping ' + url + ' at: ' + dimensions.viewportWidth + 'x' + dimensions.viewportHeight);
 }
 
 // Casper can now do its magic
 casper.start();
 casper.open(url);
-casper.viewport(currentDimensions.viewportWidth, currentDimensions.viewportHeight);
+casper.viewport(dimensions.viewportWidth, dimensions.viewportHeight);
 casper.then(function() {
   var self = this;
   if (globalBeforeCaptureJS && pathBeforeCaptureJS) {

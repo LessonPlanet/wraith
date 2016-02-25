@@ -12,29 +12,20 @@ history_dir: 'shots_history'
 
 # Add only 2 domains, key will act as a label
 domains:
-  production: "http://www.lessonplanet.com"
-  staging: "http://staging.lessonplanet.com"
+  news: "http://www.live.bbc.co.uk/news"
 
 #Type screen widths below, here are a couple of examples
 screen_widths:
-#  - 320
-#  - 600
+  - 320
+  - 600
   - 768
   - 1024
   - 1280
 
 #Type page URL paths below, here are a couple of examples
 paths:
-   home: /
-   search: /search?keywords=peaches&grade_ids%5B%5D=249&subject_ids%5B%5D=365216&type_ids%5B%5D=357917
-   directory: /lesson-plans
-   apps: /apps
-   edtech: /professional-development/courses
-   how-it-works: /content/how_it_works
-   school_edition: /schooledition
-   signup: /subscription/new
-   standards: /state-standards
-   contact-us: /us/contact
+  home: /
+  uk_index: /uk
 
 #Amount of fuzz ImageMagick will use
 fuzz: '20%'

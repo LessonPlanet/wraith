@@ -1,9 +1,12 @@
-require 'wraith'
-require 'anemone'
-require 'nokogiri'
-require 'uri'
+require "wraith"
+require "wraith/helpers/logger"
+require "anemone"
+require "nokogiri"
+require "uri"
 
 class Wraith::Spidering
+  include Logging
+
   def initialize(config)
     @wraith = Wraith::Wraith.new(config)
   end
@@ -11,10 +14,10 @@ class Wraith::Spidering
   def check_for_paths
     if @wraith.paths.nil?
       unless @wraith.sitemap.nil?
-        puts 'no paths defined in config, loading paths from sitemap'
+        logger.info "no paths defined in config, loading paths from sitemap"
         spider = Wraith::Sitemap.new(@wraith)
       else
-        puts 'no paths defined in config, crawling from site root'
+        logger.info "no paths defined in config, crawling from site root"
         spider = Wraith::Crawler.new(@wraith)
       end
       spider.determine_paths
@@ -36,11 +39,11 @@ class Wraith::Spider
   private
 
   def write_file
-    File.open(@wraith.spider_file, 'w+') { |file| file.write(@paths) }
+    File.open(@wraith.spider_file, "w+") { |file| file.write(@paths) }
   end
 
   def add_path(path)
-    @paths[path == '/' ? 'home' : path.gsub('/', '__').chomp('__').downcase] = path.downcase
+    @paths[path == "/" ? "home" : path.gsub("/", "__").chomp("__").downcase] = path.downcase
   end
 
   def spider
@@ -48,6 +51,8 @@ class Wraith::Spider
 end
 
 class Wraith::Crawler < Wraith::Spider
+  include Logging
+
   EXT = %w(flv swf png jpg gif asx zip rar tar 7z \
            gz jar js css dtd xsd ico raw mp3 mp4 \
            wav wmv ape aac ac3 wma aiff mpg mpeg \
@@ -56,13 +61,13 @@ class Wraith::Crawler < Wraith::Spider
 
   def spider
     if File.exist?(@wraith.spider_file) && modified_since(@wraith.spider_file, @wraith.spider_days[0])
-      puts 'using existing spider file'
+      logger.info "using existing spider file"
       @paths = eval(File.read(@wraith.spider_file))
     else
-      puts 'creating new spider file'
+      logger.info "creating new spider file"
       spider_list = []
       Anemone.crawl(@wraith.base_domain) do |anemone|
-        anemone.skip_links_like(/\.#{EXT.join('|')}$/)
+        anemone.skip_links_like(/\.(#{EXT.join('|')})$/)
         # Add user specified skips
         anemone.skip_links_like(@wraith.spider_skips)
         anemone.on_every_page { |page| add_path(page.url.path) }
@@ -76,20 +81,22 @@ class Wraith::Crawler < Wraith::Spider
 end
 
 class Wraith::Sitemap < Wraith::Spider
+  include Logging
+
   def spider
     unless @wraith.sitemap.nil?
-      puts "reading sitemap.xml from #{@wraith.sitemap}"
+      logger.info "reading sitemap.xml from #{@wraith.sitemap}"
       if @wraith.sitemap =~ URI.regexp
         sitemap = Nokogiri::XML(open(@wraith.sitemap))
       else
         sitemap = Nokogiri::XML(File.open(@wraith.sitemap))
       end
       urls = {}
-      sitemap.css('loc').each do |loc|
+      sitemap.css("loc").each do |loc|
         path = loc.content
         # Allow use of either domain in the sitemap.xml
         @wraith.domains.each do |_k, v|
-          path.sub!(v, '')
+          path.sub!(v, "")
         end
         if @wraith.spider_skips.nil? || @wraith.spider_skips.none? { |regex| regex.match(path) }
           add_path(path)

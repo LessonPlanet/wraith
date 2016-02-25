@@ -1,6 +1,8 @@
-require 'wraith'
+require "wraith"
+require "wraith/helpers/logger"
 
 class Wraith::FolderManager
+  include Logging
   attr_reader :wraith
 
   def initialize(config)
@@ -34,37 +36,57 @@ class Wraith::FolderManager
   end
 
   def copy_old_shots
-    FileUtils.cp_r(dir, history_dir)
+    if history_dir.nil?
+      logger.error 'no `history_dir` attribute found in config. Cannot copy files.'
+    else
+      FileUtils.cp_r("#{dir}/.", "#{history_dir}/")
+    end
   end
 
-  def restore_shots
-    puts 'restoring'
-    FileUtils.cp_r(Dir.glob("#{history_dir}/*"), dir)
+  def copy_base_images
+    logger.info "COPYING BASE IMAGES"
+    wraith.paths.each do |path|
+      path = path[0]
+      logger.info "Copying #{history_dir}/#{path} to #{dir}"
+      FileUtils.cp_r(Dir.glob("#{history_dir}/#{path}"), dir)
+    end
   end
 
   def create_folders
     spider_paths.each do |folder_label, path|
       unless path
         path = folder_label
-        folder_label = path.gsub('/', '__')
+        folder_label = path.gsub("/", "__")
       end
 
       FileUtils.mkdir_p("#{dir}/thumbnails/#{folder_label}")
       FileUtils.mkdir_p("#{dir}/#{folder_label}")
     end
-    puts 'Creating Folders'
+    logger.info "Creating Folders"
   end
 
-  # Tidy up the shots folder, removing uncessary files
-  #
   def tidy_shots_folder(dirs)
-    if wraith.mode == 'diffs_only'
-      dirs.each do |a, b|
-        # If we are running in "diffs_only mode, and none of the variants show a difference
-        # we remove the file from the shots folder
-        if b.none? { |_k, v| v[:data] > 0 }
-          FileUtils.rm_rf("#{wraith.directory}/#{a}")
-          dirs.delete(a)
+    if wraith.mode == "diffs_only"
+      dirs.each do |folder_name, shot_info|
+        if shot_info.none? { |_k, v| v[:data] > 0 }
+          FileUtils.rm_rf("#{wraith.directory}/#{folder_name}")
+          dirs.delete(folder_name)
+        end
+      end
+    end
+  end
+
+  def threshold_rate(dirs)
+    dirs.each do |_folder_name, shot_info|
+      shot_info.each do |_k, v|
+        begin
+          if !v.include?(:diff)
+            return false
+          elsif v[:data] > wraith.threshold
+            return false
+          end
+        rescue
+          return true
         end
       end
     end
