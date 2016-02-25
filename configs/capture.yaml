@@ -4,35 +4,27 @@
 # Feel free to amend for your own requirements.
 # ---
 # This particular config is intended to demonstrate how
-# to use Wraith in 'history' mode, which is best suited to
-# making sure your site's appearance remains consistent over
-# time.
+# to use Wraith in 'capture' mode, which is best suited to
+# comparing a test and live version of the same website.
 #
-# `wraith history history.yaml` # generate base screenshots
-# `wraith latest history.yaml`  # take new shots and compare
+# `wraith capture capture.yaml`
 #
 ##############################################################
 ##############################################################
 
 # (required) The engine to run Wraith with. Examples: 'phantomjs', 'casperjs', 'slimerjs'
-browser: "casperjs"
+browser: "phantomjs"
 
-# (required) The domain to take screenshots of.
+# (required) The domains to take screenshots of.
 domains:
-  english: "http://www.bbc.co.uk"
+  current:  "http://www.example.com"
+  new:      "http://develop.example.com"
 
-# (required) The paths to capture. This particular config is using casperjs, so we can take screenshots of selectors rather than the entire page.
+# (required) The paths to capture. All paths should exist for both of the domains specified above.
 paths:
-  clickable_guide:
-    path: /news/entertainment-arts-27221191
-    selector: '.idt__news' # (optional) selector to take a screenshot of
-  clickable_guide__after_click:
-    path: /news/entertainment-arts-27221191
-    selector: '.idt__news'
-    before_capture: 'javascript/beforeCapture--casper_example.js' # (optional) JavaScript file to execute before taking the screenshot of this path.
-
-# (optional) JavaScript file to execute before taking screenshot of every path. Default: nil
-before_capture: 'javascript/wait--casper.js'
+  home:     /
+  about:    /about
+  contact:  /get-in-touch
 
 # (required) Screen widths (and optional height) to resize the browser to before taking the screenshot.
 screen_widths:
@@ -42,13 +34,10 @@ screen_widths:
   - 1024
   - 1280
 
-# (optional) Resize to each screen width (efficient), or reload at each screen width (costly). Default: 'reload'
-resize_or_reload: 'resize'
+# (optional) JavaScript file to execute before taking screenshot of every path. Default: nil
+before_capture: 'javascript/disable_javascript--phantom.js'
 
-# (required for history mode, otherwise optional) The directory that your base screenshots will be stored in.
-history_dir: 'shots_base'
-
-# (required) The directory that your latest screenshots will be stored in
+# (required) The directory that your screenshots will be stored in
 directory: 'shots'
 
 # (required) Amount of fuzz ImageMagick will use when comparing images. A higher fuzz makes the comparison less strict.
@@ -70,12 +59,3 @@ gallery:
 #   diffs_only - only paths with a difference are shown, sorted by difference size (largest first)
 # Note: different screen widths are always grouped together.
 mode: diffs_first
-
-# (optional) Choose to run Wraith in verbose mode, for easier debugging. Default: false
-verbose: true
-
-# (optional) Color to highlight the image diff. Default: 'blue'
-highlight_color: red
-
-# (optional) Parameters to pass to Phantom/Casper command line. Default: '--ignore-ssl-errors=true --ssl-protocol=tlsv1'
-phantomjs_options: ''
