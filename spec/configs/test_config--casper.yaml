@@ -1,25 +1,24 @@
-#Headless browser option
-browser:
-  phantomjs: "phantomjs"
-  # slimerjs: "slimerjs"
+##########
+### NB: the paths in this YAML config are relative to the root of the Wraith directory,
+### as `bundle exec rspec` is run from the root.
+##########
 
-#If you want to have multiple snapping files, set the file name here
-snap_file: "lib/wraith/javascript/snap.js"
+#Headless browser option
+browser: "casperjs"
+snap_file: "spec/js/custom_snap_file.js"
 
 # Type the name of the directory that shots will be stored in
 directory: 'shots'
 
 # Add only 2 domains, key will act as a label
 domains:
-  english: "http://pal.live.bbc.com/news"
-  russian: "http://pal.live.bbc.co.uk/russian"
+  afrique: "http://www.bbc.com/afrique"
+  russian: "http://www.bbc.com/russian"
 
 #Type screen widths below, here are a couple of examples
 screen_widths:
   - 320
   - 600
-  - 768
-  - 1024
   - 1280
 
 #Type page URL paths below, here are a couple of examples
