@@ -6,7 +6,7 @@ module Parallel
 
     # returns the numbers of processors divided by three
     def processor_count
-      [1, (old_processor_count / 3.0).round].max
+      [1, (old_processor_count / 2.0).round].max
     end
   end
 end

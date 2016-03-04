@@ -41,7 +41,7 @@ class Wraith::CropImages
   end
 
   def run_crop_task(crop, height, width)
-    `convert #{crop.shellescape} -background none -extent #{width}x#{height} #{crop.shellescape}`
+    `convert -limit thread 1 #{crop.shellescape} -background none -extent #{width}x#{height} #{crop.shellescape}`
   end
 
   def image_dimensions(image)

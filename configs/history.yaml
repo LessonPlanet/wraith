@@ -63,7 +63,7 @@ screen_widths:
   - 2880x1800
 
 # (optional) Resize to each screen width (efficient), or reload at each screen width (costly). Default: 'reload'
-resize_or_reload: 'resize'
+resize_or_reload: 'reload'
 
 # (required for history mode, otherwise optional) The directory that your base screenshots will be stored in.
 history_dir: 'shots_history'
