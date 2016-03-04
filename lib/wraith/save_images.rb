@@ -120,6 +120,6 @@ class Wraith::SaveImages
   end
 
   def set_image_width(image, width)
-    `convert #{image.shellescape} -background none -extent #{width}x0 #{image.shellescape}`
+    `convert -limit thread 1 #{image.shellescape} -background none -extent #{width}x0 #{image.shellescape}`
   end
 end

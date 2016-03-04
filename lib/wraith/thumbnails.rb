@@ -24,6 +24,6 @@ class Wraith::Thumbnails
       FileUtils.mkdir_p(File.dirname(output_path))
     end
 
-    `convert #{png_path.shellescape} -thumbnail 200 -crop #{wraith.thumb_width.to_s}x#{wraith.thumb_height.to_s}+0+0 #{output_path.shellescape}`
+    `convert -limit thread 1 #{png_path.shellescape} -thumbnail 200 -crop #{wraith.thumb_width.to_s}x#{wraith.thumb_height.to_s}+0+0 #{output_path.shellescape}`
   end
 end
