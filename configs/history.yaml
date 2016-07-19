@@ -30,7 +30,6 @@ paths:
    apps: /apps
    edtech: /professional-development/courses
    how_it_works: /content/how_it_works
-   school_edition: /schooledition
    signup: /subscription/new
    sign_in: /auth/users/sign_in
    standards: /state-standards
