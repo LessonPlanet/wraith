@@ -19,8 +19,8 @@ browser: "phantomjs"
 
 # (required) The domain to take screenshots of.
 domains:
-  production: "http://www.lessonplanet.com"
-  staging: "http://staging.lessonplanet.com"
+  production: "https://www.lessonplanet.com"
+  staging: "https://staging.lessonplanet.com"
 
 # (required) The paths to capture. This particular config is using casperjs, so we can take screenshots of selectors rather than the entire page.
 paths:
