@@ -38,6 +38,9 @@ paths:
    about_us: /us/about_us
    videos: /us/videos
    testimonials: /us/testimonials
+   rrp_worksheet: /teachers/areas-and-perimeters-3rd-6th
+   rrp_app: /teachers/twelve-a-dozen
+   rrp_collection: /collections/rockin-english-lessons-rockin-vocab
 
 # (optional) JavaScript file to execute before taking screenshot of every path. Default: nil
 before_capture: 'javascript/cookies_and_headers--phantom.js'
