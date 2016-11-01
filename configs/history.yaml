@@ -48,21 +48,14 @@ before_capture: 'javascript/cookies_and_headers--phantom.js'
 # (required) Screen widths (and optional height) to resize the browser to before taking the screenshot.
 screen_widths:
   - 750x1334
-  - 800x600
   - 960x640
   - 1024x768
-  - 1136x640
   - 1242x2208
-  - 1280x720
   - 1366x768
   - 1440x900
   - 1680x1050
-  - 1900x1200
   - 1920x1200
   - 2048x1536
-  - 2560x1600
-  - 2739x1824
-  - 2880x1800
 
 # (optional) Resize to each screen width (efficient), or reload at each screen width (costly). Default: 'reload'
 resize_or_reload: 'reload'
