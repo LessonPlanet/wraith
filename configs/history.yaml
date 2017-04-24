@@ -39,7 +39,7 @@ paths:
    videos: /us/videos
    testimonials: /us/testimonials
    rrp_worksheet: /teachers/areas-and-perimeters-3rd-6th
-   rrp_app: /teachers/twelve-a-dozen
+   rrp_app: /teachers/sorting-machine
    rrp_collection: /collections/rockin-english-lessons-rockin-vocab
 
 # (optional) JavaScript file to execute before taking screenshot of every path. Default: nil
