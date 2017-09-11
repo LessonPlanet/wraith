@@ -26,9 +26,11 @@ domains:
 paths:
    home: /
    search: /search?keywords=peaches&grade_ids[]=249&subject_ids[]=365220
+   search_tiled: /search?keywords=peaches&grade_ids[]=249&subject_ids[]=365220&layout=tiled&page=1
+   search_list: /search?keywords=peaches&grade_ids[]=249&subject_ids[]=365220&layout=list&page=1
    directory: /lesson-plans
+   directory_resources: /lesson-plans/growth-and-development
    apps: /apps
-   edtech: /professional-development/courses
    how_it_works: /content/how_it_works
    signup: /subscription/new
    sign_in: /auth/users/sign_in
@@ -41,6 +43,12 @@ paths:
    rrp_worksheet: /teachers/areas-and-perimeters-3rd-6th
    rrp_app: /teachers/sorting-machine
    rrp_collection: /collections/rockin-english-lessons-rockin-vocab
+   pricing: /pricing
+   sitemap: /content/site_map
+   page_404: /404
+   maintenance: /maintenance
+   news: /news
+   news_article: /news/Make-Math-Learning-Fun-Here-How-Bring-Joy-Math-Class
 
 # (optional) JavaScript file to execute before taking screenshot of every path. Default: nil
 before_capture: 'javascript/cookies_and_headers--phantom.js'
@@ -50,9 +58,7 @@ screen_widths:
   - 750x1334
   - 960x640
   - 1024x768
-  - 1242x2208
   - 1366x768
-  - 1440x900
   - 1680x1050
   - 1920x1200
   - 2048x1536
