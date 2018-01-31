@@ -10,4 +10,6 @@ module.exports = function (phantom, ready) {
     phantom.open(phantom.url, function () {
         setTimeout(ready, 5000);
     });
+
+    setTimeout(ready, 10000); // you MUST call the ready() callback for Wraith to continue
 }
